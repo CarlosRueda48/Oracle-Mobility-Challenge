@@ -1,4 +1,4 @@
-import sqlite3
+import sqlite3, matplotlib.pyplot as plt
 
 class Node:
     def __init__(self, id, lat, lon):
@@ -10,12 +10,21 @@ class Node:
     def __str__(self):
         return('%d, %d, %d', self.id, self.lat, self.lon)
 
-conn = sqlite3.connect("SEMANAi.db")
-c = conn.cursor()
+def GetNodes():
+    conn = sqlite3.connect("SEMANAi.db")
+    c = conn.cursor()
 
-nodes = []
+    nodes = []
+    rawCoords = []
 
-for coordinate in c.execute("SELECT * FROM LOCATIONS"):
-    print(coordinate)
-    nodes.append(Node(coordinate[0], coordinate[1], coordinate[2]))
+    for coordinate in c.execute("SELECT * FROM LOCATIONS"):
+        print(coordinate)
+        rawCoords.append([coordinate[2], coordinate[1]])
+        nodes.append(Node(coordinate[0], coordinate[1], coordinate[2]))
+    
+    return nodes, rawCoords
+
+nodes, raw = getNodes()
+plt.scatter(*zip(*raw))
+plt.show()
 
