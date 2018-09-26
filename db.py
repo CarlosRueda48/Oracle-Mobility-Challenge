@@ -8,9 +8,8 @@ def GetNodes():
     rawCoords = []
 
     for coordinate in c.execute("SELECT * FROM LOCATIONS"):
-        print(coordinate)
         rawCoords.append([coordinate[2], coordinate[1]])
-    
+    conn.close()
     return rawCoords
 
 def Normalise():
@@ -25,7 +24,7 @@ def Normalise():
         weight[1].append(parameter[1])
         temp1.append(parameter[2])
         temp2.append(parameter[3])
-
+    conn.close()
     #Normalise 
     for i, z in enumerate(temp1):
         temp1[i] = (z - min(temp1)) / (max(temp1) - min(temp1)) * 0.1
