@@ -1,30 +1,40 @@
 import sqlite3, matplotlib.pyplot as plt
-
-class Node:
-    def __init__(self, id, lat, lon):
-        self.id = id
-        self.lat = lat
-        self. lon = lon
-        self.neighbors = []
-
-    def __str__(self):
-        return('%d, %d, %d', self.id, self.lat, self.lon)
+import graph
 
 def GetNodes():
     conn = sqlite3.connect("SEMANAi.db")
     c = conn.cursor()
 
-    nodes = []
     rawCoords = []
 
     for coordinate in c.execute("SELECT * FROM LOCATIONS"):
         print(coordinate)
         rawCoords.append([coordinate[2], coordinate[1]])
-        nodes.append(Node(coordinate[0], coordinate[1], coordinate[2]))
     
-    return nodes, rawCoords
+    return rawCoords
 
-nodes, raw = getNodes()
-plt.scatter(*zip(*raw))
-plt.show()
+def Normalise():
+    weight = [[], [], []]
+    temp1 = []
+    temp2 = []
+    conn = sqlite3.connect("SEMANAi.db")
+    c = conn.cursor()
+    #Extract start and end nodes, distance and duration from database
+    for parameter in c.execute("SELECT * FROM DISTANCES"):
+        weight[0].append(parameter[0])
+        weight[1].append(parameter[1])
+        temp1.append(parameter[2])
+        temp2.append(parameter[3])
 
+    #Normalise 
+    for i, z in enumerate(temp1):
+        temp1[i] = (z - min(temp1)) / (max(temp1) - min(temp1)) * 0.1
+
+    for i, z in enumerate(temp2):
+        temp2[i] = (z - min(temp2)) / (max(temp2) - min(temp2)) * 0.9
+
+    for i in range(len(temp1)):
+        weight[2].append(temp1[i] + temp2[i])
+        
+
+    return weight
