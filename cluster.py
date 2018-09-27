@@ -2,8 +2,8 @@ from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import db
-import graph
+import db, graph, time
+
 def cluster(n, points):
     return KMeans(n_clusters=n).fit(np.array(points))
     
@@ -22,8 +22,11 @@ oracleNode = raw[100]
 startNodes = raw[101:]
 # Remove oracle campus and starting point nodes from the rest
 raw = raw[:50]
-kmean = cluster(5, raw) 
-
+clustering_start_time = time.time()
+kmean = cluster(5, raw)
+# Print time it took to cluster the data
+print("Clustering took %s seconds." % (time.time() - clustering_start_time))
+graph_start_time = time.time()
 # Get edges with normalized weights
 edges = db.Normalise()
 # Create a graph for each cluster
@@ -50,6 +53,9 @@ for startNode in startNodes:
     for i in range(len(kmean.cluster_centers_)):
         if(dist(startNode, closest) > dist(startNode, kmean.cluster_centers_[i])):
             closest = kmean.cluster_centers_[i] 
+
+# Print time it took to create the complete graphs
+print("Creating graphs and assigning initial points took %s seconds." % (time.time() - graph_start_time))
 
 # Plot the clustered nodes
 labeledNodes = [[],[],[],[],[]]
