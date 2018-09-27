@@ -65,7 +65,7 @@ def getGraphs(n):
             labeledNodes[3].append(raw[i])
         elif(kmean.labels_[i] == 4):
             labeledNodes[4].append(raw[i])
-
+    '''
     plt.scatter(*zip(*labeledNodes[0]), color="red")
     plt.scatter(*zip(*labeledNodes[1]), color="blue")
     plt.scatter(*zip(*labeledNodes[2]), color ="green")
@@ -80,6 +80,7 @@ def getGraphs(n):
     plt.xlabel("Longitud")
     plt.ylabel("Latitud")
     plt.show()
+    '''
 
 
     return graphList

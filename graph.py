@@ -1,4 +1,5 @@
 import db
+import matplotlib.pyplot as plt
 
 class Vertex:
     def __init__(self, lat, lon, node):
@@ -50,10 +51,4 @@ class Graph:
 
     def get_vertices(self):
         return self.vert_dict.keys()
-
-
-
-    
-
-
         

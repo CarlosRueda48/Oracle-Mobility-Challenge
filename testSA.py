@@ -2,6 +2,7 @@ import anneal
 import matplotlib.pyplot as plt
 import random
 import cluster
+import time
 
 coords = []
 with open('coord.txt','r') as f:
@@ -15,9 +16,13 @@ with open('coord.txt','r') as f:
 
 
 if __name__ == '__main__':
-    #coords = [[round(random.uniform(-1000,1000),4),round(random.uniform(-1000,1000),4)] for i in range(100)]
     graphs = cluster.getGraphs(5)
-    print(graphs[0])
-    sa = anneal.SimAnneal(graphs[0], stopping_iter = 5000)
-    sa.anneal()
-    (print(sa.best_solution))
+    optimizedPaths = []
+    start_time = time.process_time()
+    for i in range (len(graphs)):
+        print("Finding optimized path for graph", i)
+        sa = anneal.SimAnneal(graphs[i], T=1000, stopping_iter = 5000)
+        sa.anneal()
+        optimizedPaths.append(sa.best_solution)
+    print(optimizedPaths)
+    print("Annealing took %s seconds." % (time.process_time() - start_time))
