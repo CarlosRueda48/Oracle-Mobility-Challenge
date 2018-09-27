@@ -52,6 +52,8 @@ class Graph:
         return self.vert_dict.keys()
 
 
-def createGraph():
-    g = Graph()
-    nodes, raw = db.GetNodes()
+
+    
+
+
+        
