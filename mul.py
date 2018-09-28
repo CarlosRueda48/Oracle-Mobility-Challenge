@@ -50,7 +50,7 @@ def main():
     coordsX = [[] for i in range(5)]
     coordsY = [[] for i in range(5)]
     weights = [0 for i in range(5)]
-
+    colors = ["red", "blue", "green", "yellow", "orange"]
     for i in range(len(graphs)):
         for j in range(len(graphs[i].vert_dict)):
             v = graphs[i].get_vertex(newBs[i][j])
@@ -59,11 +59,12 @@ def main():
             if(j != (len(graphs[i].vert_dict) - 1)):
                 weights[i] += v.get_weight(graphs[i].get_vertex(j+1))
         
-        plt.scatter(coordsY[i], coordsX[i])
-        plt.plot(coordsY[i], coordsX[i])
+        plt.scatter(coordsY[i], coordsX[i], color=colors[i])
+        plt.plot(coordsY[i], coordsX[i], color=colors[i])
 
     for i in range(len(weights)):
-        print(weights[i] * 1000)
+        print(weights[i] * 100)
+    plt.scatter(-103.4158208, 20.708207, color = "black")
     plt.show()
     
 if __name__ == "__main__":
