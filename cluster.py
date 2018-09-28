@@ -27,6 +27,7 @@ def getGraphs(n):
     graph_start_time = time.process_time()
     # Get edges with normalized weights
     edges = db.Normalise()
+    print(edges)
     # Create a graph for each cluster
     graphList = [graph.Graph() for i in range(5)]
     graphCounter = [1 for i in range(5)]
