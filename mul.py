@@ -65,6 +65,11 @@ def main():
     for i in range(len(weights)):
         print(weights[i] * 100)
     plt.scatter(-103.4158208, 20.708207, color = "black")
+    plt.scatter(-103.399223, 20.771859, color = "purple")
+    plt.scatter(-103.281663, 20.703316, color = "purple")
+    plt.scatter(-103.247455, 20.620652, color = "purple")
+    plt.scatter(-103.313528, 20.573827, color = "purple")
+    plt.scatter(-103.485171, 20.513207, color = "purple")
     plt.show()
     
 if __name__ == "__main__":

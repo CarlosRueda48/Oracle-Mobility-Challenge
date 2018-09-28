@@ -1,7 +1,6 @@
 from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
 import db, graph, time
 
 def cluster(n, points):
@@ -95,7 +94,7 @@ def getGraphs(n):
         elif(kmean.labels_[i] == 4):
             labeledNodes[4].append(raw[i])
  
-    
+    '''
     plt.scatter(*zip(*labeledNodes[0]), color="red")
     plt.scatter(*zip(*labeledNodes[1]), color="blue")
     plt.scatter(*zip(*labeledNodes[2]), color ="green")
@@ -110,6 +109,6 @@ def getGraphs(n):
     plt.xlabel("Longitud")
     plt.ylabel("Latitud")
     plt.show()
-    
+    '''
 
     return graphList
