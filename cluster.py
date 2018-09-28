@@ -27,7 +27,6 @@ def getGraphs(n):
     graph_start_time = time.process_time()
     # Get edges with normalized weights
     edges = db.Normalise()
-    print(edges)
     # Create a graph for each cluster
     graphList = [graph.Graph() for i in range(5)]
     graphCounter = [1 for i in range(5)]
@@ -73,12 +72,12 @@ def getGraphs(n):
             # If both of the edge's vertices exist in the graph, then add that edge to the graph
             if((g.get_vertex(edges[0][i]) != None) and (g.get_vertex(edges[1][i]) != None)):
                 g.add_edge(edges[0][i], edges[1][i], edges[2][i])
-
+    '''
     for g in graphList:
         print("Vertices for graph:")
         for vert in g.vert_dict:
             print(g.vert_dict[vert])
-
+    '''
     # Print time it took to create the complete graphs
     print("Creating graphs and assigning initial points took %s seconds." % (time.process_time() - graph_start_time))
 
@@ -112,13 +111,6 @@ def getGraphs(n):
     plt.ylabel("Latitud")
     plt.show()
     '''
-    counter = 0
-    for i in range(len(graphList)):
-        print("Graph ", i)
-        for key in graphList[i].vert_dict:
-            print(graphList[i].vert_dict[key].id, ", ", graphList[i].vert_dict[key].lat, ", ", graphList[i].vert_dict[key].lon)
-            counter += 1
-    print("Total nodes: ", counter)
 
     return graphList
 

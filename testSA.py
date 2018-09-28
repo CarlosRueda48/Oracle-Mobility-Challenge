@@ -21,7 +21,7 @@ if __name__ == '__main__':
     start_time = time.process_time()
     for i in range (len(graphs)):
         print("Finding optimized path for graph", i)
-        sa = anneal.SimAnneal(graphs[i], T=1000, stopping_iter = 5000)
+        sa = anneal.SimAnneal(graphs[i], T=25000, stopping_iter = 100000)
         sa.anneal()
         optimizedPaths.append(sa.best_solution)
     print(optimizedPaths)

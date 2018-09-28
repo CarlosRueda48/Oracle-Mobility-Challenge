@@ -17,7 +17,7 @@ class best_Solutions(object):
             self.lock.release()
 
 def worker(graph, bs, ident):
-    sa = anneal.SimAnneal(graph, T=1000, stopping_iter = 5000)
+    sa = anneal.SimAnneal(graph, T=250000, stopping_iter = 100000)
     sa.anneal()
     bs.add(sa.best_solution, ident)
 
@@ -37,7 +37,6 @@ def main():
             t.join()
 
     print("Time taken = {0:.5f}".format(time.process_time() - start))
-    print("Best solutions: ", bs.bs)
     newBs = [None]*5
     for w in range(5):
         for x in range(5):
@@ -47,13 +46,14 @@ def main():
     newBs = [x[1] for x in newBs]           
     print("Best solutions ordered: ", newBs)
     
+    #Plot each path
     coordsX = [[] for i in range(5)]
     coordsY = [[] for i in range(5)]
     weights = [0 for i in range(5)]
 
     for i in range(len(graphs)):
         for j in range(len(graphs[i].vert_dict)):
-            v = graphs[i].get_vertex(j)
+            v = graphs[i].get_vertex(newBs[i][j])
             coordsX[i].append(v.lon)
             coordsY[i].append(v.lat)
             if(j != (len(graphs[i].vert_dict) - 1)):
@@ -62,7 +62,8 @@ def main():
         plt.scatter(coordsY[i], coordsX[i])
         plt.plot(coordsY[i], coordsX[i])
 
-    print(weights)
+    for i in range(len(weights)):
+        print(weights[i] * 1000)
     plt.show()
     
 if __name__ == "__main__":

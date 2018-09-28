@@ -28,7 +28,7 @@ class SimAnneal(object):
 
     def initial_solution(self):
         """
-        Greedy algorithm to get an initial solution (closest-neighbour)
+        Initial solution is chosen at random
         """ 
         cur_node = random.choice(self.nodes)
         solution = self.nodes
@@ -64,7 +64,8 @@ class SimAnneal(object):
         Used as distance matrix: mat[i][j] is the distance between node i and j
         """
         n = len(self.graph.vert_dict)
-        mat = [[self.dist(self.graph.get_vertex(i), self.graph.get_vertex(j)) for i in range(n)] for j in range(n)]
+        mat = [[self.dist(self.graph.get_vertex(i), self.graph.get_vertex(j)) for i in range(n)]
+              for j in range(n)]
         return mat
 
     def fitness(self, sol):
