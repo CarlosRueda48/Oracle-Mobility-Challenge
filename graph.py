@@ -51,4 +51,3 @@ class Graph:
 
     def get_vertices(self):
         return self.vert_dict.keys()
-        

@@ -95,8 +95,8 @@ class SimAnneal(object):
         """
         while self.T >= self.stopping_temperature and self.iteration < self.stopping_iter:
             candidate = list(self.cur_solution)
-            l = random.randint(2, self.N - 1)
-            i = random.randint(0, self.N - l)
+            l = random.randint(3, self.N - 2)
+            i = random.randint(1, self.N - 2)
             candidate[i:(i + l)] = reversed(candidate[i:(i + l)])
             self.accept(candidate)
             self.T *= self.alpha
