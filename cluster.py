@@ -115,7 +115,7 @@ def getGraphs(n):
     for i in range(len(graphList)):
         print("Graph ", i)
         for key in graphList[i].vert_dict:
-            print(graphList[i].vert_dict[key].lat, ", ", graphList[i].vert_dict[key].lon)
+            print(graphList[i].vert_dict[key].id, ", ", graphList[i].vert_dict[key].lat, ", ", graphList[i].vert_dict[key].lon)
             counter += 1
     print("Total nodes: ", counter)
 

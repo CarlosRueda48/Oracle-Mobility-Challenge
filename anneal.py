@@ -29,19 +29,27 @@ class SimAnneal(object):
     def initial_solution(self):
         """
         Greedy algorithm to get an initial solution (closest-neighbour)
-        """
+        """ 
         cur_node = random.choice(self.nodes)
-        solution = [cur_node]
+        solution = self.nodes
 
         free_list = list(self.nodes)
         free_list.remove(cur_node)
-
+        def swap(i, j):
+            temp = solution[i]
+            solution[i] = solution[j]
+            solution[j] = temp
+        for i in range(100):
+            j = random.randint(1, self.N-2)
+            k = random.randint(1, self.N-2)
+            swap(j,k)
+        '''
         while free_list:
             closest_dist = min([self.dist_matrix[cur_node][j] for j in free_list])
             cur_node = self.dist_matrix[cur_node].index(closest_dist)
             free_list.remove(cur_node)
             solution.append(cur_node)
-
+        '''
         return solution
 
     def dist(self, node1, node2):
@@ -93,16 +101,18 @@ class SimAnneal(object):
         """
         Execute simulated annealing algorithm
         """
+        print("Graph size: ", len(self.best_solution))
         while self.T >= self.stopping_temperature and self.iteration < self.stopping_iter:
             candidate = list(self.cur_solution)
-            l = random.randint(3, self.N - 2)
-            i = random.randint(1, self.N - 2)
-            candidate[i:(i + l)] = reversed(candidate[i:(i + l)])
-            self.accept(candidate)
-            self.T *= self.alpha
-            self.iteration += 1
+            l = random.randint(2, self.N - 1)
+            i = random.randint(1, self.N - 1)
+            if(i > 0 and i < self.N - 1 and (i+l) < (len(candidate) - 1)):
+                candidate[i:(i + l)] = reversed(candidate[i:(i + l)])
+                self.accept(candidate)
+                self.T *= self.alpha
+                self.iteration += 1
 
-            self.fitness_list.append(self.cur_fitness)
+                self.fitness_list.append(self.cur_fitness)
 
         print('Best fitness obtained: ', self.best_fitness)
         print('Improvement over greedy heuristic: ',
